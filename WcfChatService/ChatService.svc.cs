@@ -11,9 +11,12 @@ namespace WcfChatService
         private readonly List<MessageModel> _messages = new List<MessageModel>();
         private readonly List<User> _users;
 
+        private long _localId;
+
         public ChatService()
         {
             _users = new List<User>();
+            _localId = 0;
         }
 
         public void Login(string newUser)
@@ -36,12 +39,15 @@ namespace WcfChatService
 
         public void SendMessage(MessageModel message)
         {
+            message.Id = _localId;
             _messages.Add(message);
+
+            _localId++;
         }
 
-        public List<MessageModel> GetMessages()
+        public List<MessageModel> GetMessages(long id)
         {
-            return _messages;
+            return _messages.Where(x => x.Id > id).ToList();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace WcfChatService
         //List<User> GetUsers();
 
         [OperationContract]
-        List<MessageModel> GetMessages();
+        List<MessageModel> GetMessages(long id);
     }
 
 

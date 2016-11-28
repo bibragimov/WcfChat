@@ -12,8 +12,10 @@ namespace WcfChatService.Models
         }
 
         [DataMember]
-        public string UserName { get; private set; }
+        public long Id { get; set; }
 
+        [DataMember]
+        public string UserName { get; private set; }
 
         [DataMember]
         public string Text { get; private set; }

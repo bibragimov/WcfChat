@@ -23,6 +23,9 @@ namespace WpfChatClient.ChatServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TextField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -35,6 +38,19 @@ namespace WpfChatClient.ChatServiceReference {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
             }
         }
         
@@ -97,10 +113,10 @@ namespace WpfChatClient.ChatServiceReference {
         System.Threading.Tasks.Task SendMessageAsync(WpfChatClient.ChatServiceReference.MessageModel message);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetMessages", ReplyAction="http://tempuri.org/IChatService/GetMessagesResponse")]
-        WpfChatClient.ChatServiceReference.MessageModel[] GetMessages();
+        WpfChatClient.ChatServiceReference.MessageModel[] GetMessages(long id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetMessages", ReplyAction="http://tempuri.org/IChatService/GetMessagesResponse")]
-        System.Threading.Tasks.Task<WpfChatClient.ChatServiceReference.MessageModel[]> GetMessagesAsync();
+        System.Threading.Tasks.Task<WpfChatClient.ChatServiceReference.MessageModel[]> GetMessagesAsync(long id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -154,12 +170,12 @@ namespace WpfChatClient.ChatServiceReference {
             return base.Channel.SendMessageAsync(message);
         }
         
-        public WpfChatClient.ChatServiceReference.MessageModel[] GetMessages() {
-            return base.Channel.GetMessages();
+        public WpfChatClient.ChatServiceReference.MessageModel[] GetMessages(long id) {
+            return base.Channel.GetMessages(id);
         }
         
-        public System.Threading.Tasks.Task<WpfChatClient.ChatServiceReference.MessageModel[]> GetMessagesAsync() {
-            return base.Channel.GetMessagesAsync();
+        public System.Threading.Tasks.Task<WpfChatClient.ChatServiceReference.MessageModel[]> GetMessagesAsync(long id) {
+            return base.Channel.GetMessagesAsync(id);
         }
     }
 }

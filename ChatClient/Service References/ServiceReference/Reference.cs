@@ -34,10 +34,10 @@ namespace ChatClient.ServiceReference {
         System.Threading.Tasks.Task SendMessageAsync(WcfChatService.Models.MessageModel message);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetMessages", ReplyAction="http://tempuri.org/IChatService/GetMessagesResponse")]
-        WcfChatService.Models.MessageModel[] GetMessages();
+        WcfChatService.Models.MessageModel[] GetMessages(long id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetMessages", ReplyAction="http://tempuri.org/IChatService/GetMessagesResponse")]
-        System.Threading.Tasks.Task<WcfChatService.Models.MessageModel[]> GetMessagesAsync();
+        System.Threading.Tasks.Task<WcfChatService.Models.MessageModel[]> GetMessagesAsync(long id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -91,12 +91,12 @@ namespace ChatClient.ServiceReference {
             return base.Channel.SendMessageAsync(message);
         }
         
-        public WcfChatService.Models.MessageModel[] GetMessages() {
-            return base.Channel.GetMessages();
+        public WcfChatService.Models.MessageModel[] GetMessages(long id) {
+            return base.Channel.GetMessages(id);
         }
         
-        public System.Threading.Tasks.Task<WcfChatService.Models.MessageModel[]> GetMessagesAsync() {
-            return base.Channel.GetMessagesAsync();
+        public System.Threading.Tasks.Task<WcfChatService.Models.MessageModel[]> GetMessagesAsync(long id) {
+            return base.Channel.GetMessagesAsync(id);
         }
     }
 }

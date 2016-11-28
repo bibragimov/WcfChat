@@ -23,7 +23,7 @@ namespace ChatClient
                     var mes = Console.ReadLine();
                     client.SendMessage(new MessageModel(name, mes));
 
-                    var allMessages = client.GetMessages().ToList();
+                    var allMessages = client.GetMessages(1).ToList();
                     Console.WriteLine(allMessages.Count);
                     allMessages.ForEach(x => Console.WriteLine(x.Text));
                 }
