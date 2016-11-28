@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace WpfChatClient
 {
@@ -16,5 +17,10 @@ namespace WpfChatClient
         }
 
         public ChatViewModel Model { get; set; }
+
+        private void MainWindow_OnClosed(object sender, EventArgs e)
+        {
+            Model.CloseApplication();
+        }
     }
 }

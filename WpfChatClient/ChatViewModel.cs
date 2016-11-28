@@ -103,6 +103,9 @@ namespace WpfChatClient
         /// </summary>
         public ObservableCollection<MessageModel> Messages { get; set; }
 
+        /// <summary>
+        ///     Логинимся
+        /// </summary>
         private void Login()
         {
             if (!string.IsNullOrWhiteSpace(UserName))
@@ -111,14 +114,28 @@ namespace WpfChatClient
                 UserNameTxtBoxVisibility = Visibility.Collapsed;
                 UserNameTxtBlockVisibility = Visibility.Visible;
 
-                _client = new ChatServiceClient();
-                _client.Login(UserName);
+                try
+                {
+                    _client = new ChatServiceClient();
+                    _client.Login(UserName);
 
-                var tmrShow = new Timer { Interval = 500, Enabled = true };
-                tmrShow.Elapsed += tmrShow_Tick;
+                    var tmrShow = new Timer { Interval = 500, Enabled = true };
+                    tmrShow.Elapsed += tmrShow_Tick;
+                }
+                catch (Exception ex)
+                {
+                    _client.Abort();
+                    _client.Close();
+                }
+              
             }
         }
 
+        /// <summary>
+        ///     Периодический запрашиваем новые сообщения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tmrShow_Tick(object sender, EventArgs e)
         {
             var lastMes = Messages.LastOrDefault();
@@ -130,10 +147,19 @@ namespace WpfChatClient
                 () => allMessages.ForEach(x => Messages.Add(x))));
         }
 
+        /// <summary>
+        ///     Отправка сообщения
+        /// </summary>
         private void SendMessage()
         {
             _client.SendMessage(new MessageModel { Text = MessageText, UserName = UserName });
             MessageText = string.Empty;
+        }
+
+        public void CloseApplication()
+        {
+            _client.LogOut(UserName);
+            _client.Close();
         }
     }
 }

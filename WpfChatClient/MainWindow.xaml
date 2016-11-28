@@ -1,7 +1,8 @@
 ﻿<Window x:Class="WpfChatClient.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="450" Width="625">
+        Title="MainWindow" Height="450" Width="625"
+        Closed="MainWindow_OnClosed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" />

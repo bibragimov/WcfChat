@@ -8,7 +8,7 @@ namespace WcfChatService
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChatService
     {
-        private readonly List<MessageModel> _messages = new List<MessageModel>();
+        private readonly List<MessageModel> _messages;
         private readonly List<User> _users;
 
         private long _localId;
@@ -16,6 +16,7 @@ namespace WcfChatService
         public ChatService()
         {
             _users = new List<User>();
+            _messages = new List<MessageModel>();
             _localId = 0;
         }
 

@@ -7,41 +7,33 @@ namespace WcfChatService
     [ServiceContract]
     public interface IChatService
     {
+        /// <summary>
+        ///     Вход в систему
+        /// </summary>
+        /// <param name="newUser"></param>
         [OperationContract]
         void Login(string newUser);
 
+        /// <summary>
+        ///     Выход из системы
+        /// </summary>
+        /// <param name="userName"></param>
         [OperationContract]
         void LogOut(string userName);
 
+        /// <summary>
+        ///     Отправка сообщения
+        /// </summary>
+        /// <param name="message"></param>
         [OperationContract]
         void SendMessage(MessageModel message);
 
-        //[OperationContract]
-        //List<User> GetUsers();
-
+        /// <summary>
+        ///     Получение сообщений
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [OperationContract]
         List<MessageModel> GetMessages(long id);
     }
-
-
-    //[DataContract]
-    //public class CompositeType
-    //{
-    //    bool boolValue = true;
-    //    string stringValue = "Hello ";
-
-    //    [DataMember]
-    //    public bool BoolValue
-    //    {
-    //        get { return boolValue; }
-    //        set { boolValue = value; }
-    //    }
-
-    //    [DataMember]
-    //    public string StringValue
-    //    {
-    //        get { return stringValue; }
-    //        set { stringValue = value; }
-    //    }
-    //}
 }
