@@ -1,9 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using WpfChatClient.ChatServiceReference;
 using WpfChatClient.Utils;
+using Timer = System.Timers.Timer;
 
 namespace WpfChatClient
 {
@@ -111,17 +116,25 @@ namespace WpfChatClient
 
                 _client = new ChatServiceClient();
                 _client.Login(UserName);
+
+                var tmrShow = new Timer();
+                tmrShow.Interval = 2000;
+                tmrShow.Elapsed += tmrShow_Tick;
+                tmrShow.Enabled = true;
             }
+        }
+
+        private void tmrShow_Tick(object sender, EventArgs e)
+        {
+            var allMessages = _client.GetMessages().ToList();
+
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => allMessages.ForEach(x => Messages.Add(x))));
         }
 
         private void SendMessage()
         {
             _client.SendMessage(new MessageModel {Text = MessageText, UserName = UserName});
             MessageText = string.Empty;
-
-            var allMessages = _client.GetMessages().ToList();
-
-            allMessages.ForEach(x => Messages.Add(x));
         }
     }
 }
